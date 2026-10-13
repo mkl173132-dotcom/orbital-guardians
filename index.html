@@ -1,0 +1,122 @@
+<!doctype html>
+<html lang="fa" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#071426">
+  <title>نگهبانان مدار | فرماندهی زمین</title>
+  <link rel="stylesheet" href="./src/style.css">
+</head>
+<body>
+  <div id="app">
+    <header class="topbar">
+      <div class="brand"><span class="brand-icon">✦</span><span><b>نگهبانان مدار</b><small>ORBITAL GUARDIANS</small></span></div>
+      <div class="hud-resources"><div><span>◆</span><small>منابع</small><b>۵٬۲۵۰٬۰۰۰</b></div><div><span>ϟ</span><small>انرژی</small><b id="topEnergy">۱۲۰</b></div><div><span>⬡</span><small>دفاع</small><b>۹۵٪</b></div></div>
+      <div class="top-actions">
+        <span class="live-pill"><i></i> شبیه‌ساز فعال</span>
+        <button id="helpBtn" class="icon-btn" aria-label="راهنما">؟</button>
+      </div>
+    </header>
+    <main>
+      <section id="welcome" class="welcome glass">
+        <div class="welcome-copy">
+          <span class="eyebrow">STRATEGY · PLANETARY DEFENSE</span>
+          <h1>زمین را کشف کن.<br><em>مدار را فرماندهی کن.</em></h1>
+          <p>یک تجربه استراتژیک سه‌بعدی با کره زمین، انتخاب کشورها، پایگاه‌های خیالی و پرتاب‌های نمایشی در فضای بازی.</p>
+          <button id="startBtn" class="primary big">ورود به فرماندهی <span>←</span></button>
+          <div class="mini-features"><span>◉ زمین سه‌بعدی</span><span>⌖ انتخاب کشور</span><span>✧ جلوه‌های سینمایی</span></div>
+        </div>
+        <div class="hero-orb"><div class="orb-ring"></div><div id="heroGlobe"></div><div class="hero-label">EARTH / 01 <b>۹۸٪ پایدار</b></div></div>
+      </section>
+
+      <section id="command" class="command hidden">
+        <div class="scene-wrap">
+          <div id="globe" aria-label="کره سه‌بعدی زمین"></div>
+          <div class="scene-vignette"></div>
+          <div class="scene-heading"><span class="eyebrow">TACTICAL HOLOMAP</span><h2>کره زمین</h2><p>برای چرخش بکش · برای زوم اسکرول یا نیشگون · برای انتخاب روی نقطه بزن</p></div>
+          <div class="scene-controls">
+            <button id="resetView" class="scene-btn" title="بازنشانی دوربین">◎ <span>نمای اولیه</span></button>
+            <button id="toggleLabels" class="scene-btn">⌖ <span>برچسب‌ها</span></button>
+          </div>
+          <div id="sceneToast" class="scene-toast">در حال آماده‌سازی زمین سه‌بعدی…</div>
+          <div class="map-legend"><span><i class="dot cyan"></i> کشور انتخابی</span><span><i class="dot gold"></i> پایگاه خیالی</span></div>
+          <div class="radar-widget"><span>◎</span><small>پایش مدار</small><b>فعال</b></div>
+          <div class="coordinate-widget"><small>مختصات نمایشی</small><b id="coordinateReadout">۳۵٫۶۹° شمالی</b><span>۵۱٫۳۹° شرقی</span></div>
+        </div>
+        <aside class="control-panel glass">
+          <div class="panel-head"><div><span class="eyebrow">COMMAND CENTER</span><h2>مرکز فرماندهی</h2></div><span class="status-badge">آماده</span></div>
+          <div class="country-card">
+            <div class="country-flag" id="countryFlag">🌐</div>
+            <div class="country-meta"><small>انتخاب فعلی</small><h3 id="countryName">زمین</h3><p id="countryDescription">یک کشور را روی کره انتخاب کن یا از فهرست نمایشی استفاده کن.</p></div>
+          </div>
+          <label class="field-label" for="countrySelect">انتخاب منطقه نمایشی</label>
+          <select id="countrySelect">
+            <option value="">انتخاب کشور…</option>
+            <option value="IR">ایران</option><option value="TR">ترکیه</option><option value="FR">فرانسه</option>
+            <option value="JP">ژاپن</option><option value="BR">برزیل</option><option value="CA">کانادا</option>
+            <option value="AU">استرالیا</option><option value="EG">مصر</option><option value="ZA">آفریقای جنوبی</option>
+            <option value="US">ایالات متحده</option><option value="IN">هند</option><option value="IS">ایسلند</option>
+          </select>
+          <label class="field-label" for="targetSelect">منطقه مأموریت بازی</label>
+          <select id="targetSelect">
+            <option value="alpha">منطقه آلفا · مدار شمالی</option>
+            <option value="beta">منطقه بتا · مدار جنوبی</option>
+            <option value="gamma">منطقه گاما · نقطه اقیانوسی</option>
+          </select>
+          <div class="mission-status" id="missionStatus"><span class="status-light"></span><span id="missionText">سامانه‌ها آماده‌اند؛ یک مأموریت انتخاب کن.</span></div>
+          <div class="divider"></div>
+          <div class="panel-head"><h3>تجهیزات بازی</h3><span class="muted">مدل‌های تخیلی</span></div>
+          <button class="equipment selected" data-equipment="guardian"><span class="equip-icon">◈</span><span class="equip-copy"><b>نگهبان-۱</b><small>سامانه دفاعی انرژی</small></span><span class="equip-cost">۱۲ <small>انرژی</small></span></button>
+          <button class="equipment" data-equipment="drone"><span class="equip-icon">✧</span><span class="equip-copy"><b>پهپاد دیده‌بان</b><small>پرواز نمایشی در مدار</small></span><span class="equip-cost">۱۸ <small>انرژی</small></span></button>
+          <button class="equipment" data-equipment="rocket"><span class="equip-icon">➤</span><span class="equip-copy"><b>موشک خیالی «سپهر»</b><small>مدل سه‌بعدی و مسیر نمایشی</small></span><span class="equip-cost">۲۴ <small>انرژی</small></span></button>
+          <div class="resource-grid">
+            <div><small>انرژی</small><b id="energyValue">۱۲۰</b><div class="bar"><i id="energyBar"></i></div></div>
+            <div><small>امتیاز</small><b id="scoreValue">۰۰۰</b><div class="bar scorebar"><i id="scoreBar"></i></div></div>
+          </div>
+          <button id="launchBtn" class="primary launch-btn">✦ اجرای مأموریت</button>
+          <div class="game-actions"><button id="rechargeBtn" class="scene-btn">＋ شارژ انرژی</button><button id="clearEffectsBtn" class="scene-btn">پاک‌سازی جلوه‌ها</button></div>
+          <div class="event-log"><div class="log-head"><b>گزارش مأموریت</b><span id="logCount">۰ رویداد</span></div><ul id="eventLog"><li>شبیه‌ساز آماده است.</li></ul></div>
+          <p class="disclaimer">تمام سلاح‌ها، مسیرها و مناطق مأموریت در این پروژه تخیلی‌اند؛ این بازی مدل یا سامانه عملیاتی واقعی را شبیه‌سازی نمی‌کند.</p>
+        </aside>
+      </section>
+    </main>
+    <div class="arsenal-strip"><div class="arsenal-title"><b>زرادخانه بازی</b><small>تجهیزات نمایشی قابل انتخاب</small></div><button class="arsenal-card active" data-jump="guardian"><span>◈</span><b>نگهبان-۱</b><small>دفاع انرژی</small></button><button class="arsenal-card" data-jump="drone"><span>✧</span><b>دیده‌بان</b><small>پهپاد خیالی</small></button><button class="arsenal-card" data-jump="rocket"><span>➤</span><b>سپهر</b><small>موشک خیالی</small></button><div class="arsenal-note"><span>✦</span><b>فرماندهی آماده است</b><small>یک تجهیز را برای مأموریت انتخاب کن</small></div></div>
+  <footer><span>ORBITAL GUARDIANS <b>•</b> PROTOTYPE</span><span>طراحی واکنش‌گرا برای موبایل و دسکتاپ</span></footer>
+  </div>
+  <div id="modal" class="modal hidden" role="dialog" aria-modal="true">
+    <div class="modal-card glass"><button id="closeModal" class="close-modal">×</button><span class="eyebrow">راهنمای سریع</span><h2>چطور بازی کنیم؟</h2><p>کره را با ماوس یا انگشت بچرخان. یک نقطه روی زمین را برای استقرار نمایشی انتخاب کن، منطقه مأموریت را برگزین و یکی از تجهیزات تخیلی را فعال کن. اجرای مأموریت، مسیر سه‌بعدی، اثر برخورد بازی و امتیاز را به‌روزرسانی می‌کند. برای ادامه، انرژی را شارژ کن.</p><p class="muted">برای اجرای نسخه سایت، پوشه پروژه را روی یک هاست استاتیک منتشر کن. بار اول برای دریافت کتابخانه سه‌بعدی و بافت زمین به اینترنت نیاز است.</p><button id="modalOk" class="primary">متوجه شدم</button></div>
+  </div>
+  <script type="importmap">
+    {"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.161.0/build/three.module.js"}}
+  </script>
+  <script type="module" src="./src/main.js"></script>
+  <script>
+    window.addEventListener('error', function (event) {
+      if (event.message || event.error) {
+        const welcome = document.getElementById('welcome');
+        if (welcome && !document.getElementById('startupError')) {
+          const note = document.createElement('p'); note.id='startupError';
+          note.style.cssText='color:#ffb7bd;background:#35121a;border:1px solid #ff5366;padding:12px;border-radius:10px;direction:rtl';
+          note.textContent='بخشی از بازی بارگیری نشد. اتصال اینترنت را بررسی کن و صفحه را دوباره بارگذاری کن.';
+          welcome.querySelector('.welcome-copy').appendChild(note);
+        }
+      }
+    });
+  </script>
+  <script>
+    // Keep the interface usable even when the browser blocks remote ES modules on file://.
+    // Three.js visuals need a local web server or static hosting, but menus still work.
+    document.getElementById('startBtn').addEventListener('click', function(){
+      document.getElementById('welcome').classList.add('hidden');
+      document.getElementById('command').classList.remove('hidden');
+      if (!document.querySelector('#globe canvas')) {
+        const note=document.getElementById('sceneToast');
+        note.textContent='رابط بازی باز شد؛ برای کره سه‌بعدی، پروژه را از طریق میزبانی وب اجرا کن.';
+        note.classList.add('visible');
+      }
+    }, {once:true});
+    document.querySelectorAll('[data-jump]').forEach(b=>b.addEventListener('click',()=>{const target=document.querySelector('.equipment[data-equipment="'+b.dataset.jump+'"]');if(target)target.click();document.querySelectorAll('.arsenal-card').forEach(x=>x.classList.toggle('active',x===b));}));
+    const energyObserver=new MutationObserver(()=>{const source=document.getElementById('energyValue'),top=document.getElementById('topEnergy');if(source&&top)top.textContent=source.textContent;});const ev=document.getElementById('energyValue');if(ev)energyObserver.observe(ev,{childList:true,characterData:true,subtree:true});
+  </script>
+</body>
+</html>
